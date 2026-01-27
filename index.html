@@ -1,110 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <style>
-        /* Basic CSS for clean formatting */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
-        header { text-align: center; background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1 { margin: 0; color: #2c3e50; }
-        h2 { border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50; margin-top: 30px; }
-        section { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .contact-info { margin-top: 10px; color: #666; }
-        ul { list-style-type: square; padding-left: 20px; }
-        .project-card, .cert-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
-        .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        
-        /* Responsive design for mobile */
-        @media (max-width: 600px) {
-            .skills-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <title>Professional Portfolio | [Your Name]</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>[Your Full Name]</h1>
-        <p class="contact-info">
-            [Job Title / Tagline] <br>
-            Email: [your.email@example.com] | Phone: [Your Phone Number] <br>
-            <a href="[Link to LinkedIn]">LinkedIn</a> | <a href="[Link to GitHub]">GitHub</a>
-        </p>
-    </header>
-
-    <section id="education">
-        <h2>Education Attainment</h2>
-        <div>
-            <h3>[Degree Name]</h3>
-            <p><strong>[University/School Name]</strong> | [Year Started] - [Year Graduated]</p>
-            <p><em>Honors/Awards: [List any specific honors here]</em></p>
-        </div>
-        <hr>
-        <div>
-            <h3>[High School / Previous Degree]</h3>
-            <p><strong>[School Name]</strong> | [Year Started] - [Year Graduated]</p>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills-grid">
-            <div>
-                <h3>Technical Skills</h3>
-                <ul>
-                    <li>HTML5 & CSS3</li>
-                    <li>JavaScript (Basic)</li>
-                    <li>Git & GitHub</li>
-                    <li>[Specific Tool/Software]</li>
-                    <li>[Specific Tool/Software]</li>
-                </ul>
+    <div class="container">
+        <header>
+            <div class="profile-main">
+                <h1>[Your Full Name]</h1>
+                <p class="tagline">Full Stack Developer | UI/UX Enthusiast</p>
+                <div class="contact-links">
+                    <a href="mailto:email@example.com">Email</a> • 
+                    <a href="#">LinkedIn</a> • 
+                    <a href="#">GitHub</a>
+                </div>
             </div>
-            <div>
-                <h3>Soft Skills</h3>
-                <ul>
-                    <li>Communication</li>
-                    <li>Teamwork & Collaboration</li>
-                    <li>Problem Solving</li>
-                    <li>Time Management</li>
-                    <li>Adaptability</li>
-                </ul>
+        </header>
+
+        <section id="education">
+            <h2>Education</h2>
+            <div class="card">
+                <span class="date">2020 — 2024</span>
+                <h3>Bachelor of Science in Computer Science</h3>
+                <p class="institution">[University Name]</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        
-        <div class="project-card">
-            <h3>[Project Title 1]</h3>
-            <p><strong>Role:</strong> [Your Role, e.g., Lead Developer]</p>
-            <p>[Brief description of what the project does, the problem it solved, and the technologies used.]</p>
-            <a href="[Link to Project Repo]">View Code</a>
-        </div>
+        <section id="skills">
+            <h2>Expertise</h2>
+            <div class="skills-wrapper">
+                <div class="skill-category">
+                    <h3>Technical</h3>
+                    <div class="tag-container">
+                        <span class="tag">HTML5/CSS3</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">Git</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Soft Skills</h3>
+                    <div class="tag-container">
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Critical Thinking</span>
+                        <span class="tag">Agile Workflow</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="project-card">
-            <h3>[Project Title 2]</h3>
-            <p><strong>Role:</strong> [Your Role]</p>
-            <p>[Brief description of the project.]</p>
-        </div>
-    </section>
+        <section id="projects">
+            <h2>Selected Work</h2>
+            <div class="project-grid">
+                <div class="card project-card">
+                    <h3>Project Title One</h3>
+                    <p>A high-performance web application designed to streamline inventory management using JavaScript and Firebase.</p>
+                    <a href="#" class="btn-link">View Project →</a>
+                </div>
+                <div class="card project-card">
+                    <h3>Project Title Two</h3>
+                    <p>Responsive e-commerce interface built with a focus on accessibility and user conversion rates.</p>
+                    <a href="#" class="btn-link">View Project →</a>
+                </div>
+            </div>
+        </section>
 
-    <section id="certificates">
-        <h2>Certificates</h2>
-        
-        <div class="cert-card">
-            <h3>[Certificate Name]</h3>
-            <p><strong>Issued by:</strong> [Organization Name] | <strong>Date:</strong> [Date Issued]</p>
-            <p><em>Credential ID: [Optional ID Number]</em></p>
-        </div>
+        <section id="certificates">
+            <h2>Certifications</h2>
+            <ul class="cert-list">
+                <li><strong>AWS Certified Developer</strong> - Amazon Web Services (2025)</li>
+                <li><strong>Advanced CSS Mastery</strong> - Coursera (2024)</li>
+            </ul>
+        </section>
 
-        <div class="cert-card">
-            <h3>[Certificate Name]</h3>
-            <p><strong>Issued by:</strong> [Organization Name] | <strong>Date:</strong> [Date Issued]</p>
-        </div>
-    </section>
+        <footer>
+            <p>&copy; 2026 [Your Name]. Built with precision.</p>
+        </footer>
+    </div>
 
 </body>
 </html>
