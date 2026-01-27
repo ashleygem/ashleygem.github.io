@@ -3,86 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Portfolio | [Your Name]</title>
+    <title>Portfolio | Creative Developer</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <div class="profile-main">
-                <h1>[Your Full Name]</h1>
-                <p class="tagline">Full Stack Developer | UI/UX Enthusiast</p>
-                <div class="contact-links">
-                    <a href="mailto:email@example.com">Email</a> • 
-                    <a href="#">LinkedIn</a> • 
-                    <a href="#">GitHub</a>
-                </div>
+    <div class="bg-blur"></div>
+
+    <nav>
+        <div class="nav-inner">
+            <span class="logo">PORTFOLIO</span>
+            <div class="nav-links">
+                <a href="#projects">Work</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact" class="btn-sm">Hire Me</a>
             </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="hero">
+            <span class="badge">Available for Work</span>
+            <h1>I build <span class="text-gradient">digital experiences</span> that matter.</h1>
+            <p class="hero-subtext">Blending technical precision with creative design to solve complex problems.</p>
         </header>
 
-        <section id="education">
-            <h2>Education</h2>
-            <div class="card">
-                <span class="date">2020 — 2024</span>
-                <h3>Bachelor of Science in Computer Science</h3>
-                <p class="institution">[University Name]</p>
-            </div>
-        </section>
+        <div class="main-grid">
+            <section id="education" class="glass-card">
+                <h2>Education</h2>
+                <div class="item">
+                    <span class="year">2026</span>
+                    <h3>Computer Science</h3>
+                    <p>Stanford University (Online)</p>
+                </div>
+            </section>
 
-        <section id="skills">
-            <h2>Expertise</h2>
-            <div class="skills-wrapper">
-                <div class="skill-category">
-                    <h3>Technical</h3>
-                    <div class="tag-container">
-                        <span class="tag">HTML5/CSS3</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">Git</span>
-                        <span class="tag">SQL</span>
+            <section id="projects" class="glass-card">
+                <h2>Featured Projects</h2>
+                <div class="project-item">
+                    <div class="project-info">
+                        <h3>Nexus Dashboard</h3>
+                        <p>A real-time analytics engine built with React.</p>
+                        <a href="#" class="view-btn">Launch Site ↗</a>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3>Soft Skills</h3>
-                    <div class="tag-container">
-                        <span class="tag">Leadership</span>
-                        <span class="tag">Critical Thinking</span>
-                        <span class="tag">Agile Workflow</span>
-                    </div>
-                </div>
+            </section>
+        </div>
+
+        <section id="skills" class="skills-section">
+            <h2>The Toolkit</h2>
+            <div class="skill-cloud">
+                <span class="skill-pill">JavaScript</span>
+                <span class="skill-pill">TypeScript</span>
+                <span class="skill-pill">React</span>
+                <span class="skill-pill">Node.js</span>
+                <span class="skill-pill">UI Design</span>
+                <span class="skill-pill">Git</span>
             </div>
         </section>
 
-        <section id="projects">
-            <h2>Selected Work</h2>
-            <div class="project-grid">
-                <div class="card project-card">
-                    <h3>Project Title One</h3>
-                    <p>A high-performance web application designed to streamline inventory management using JavaScript and Firebase.</p>
-                    <a href="#" class="btn-link">View Project →</a>
-                </div>
-                <div class="card project-card">
-                    <h3>Project Title Two</h3>
-                    <p>Responsive e-commerce interface built with a focus on accessibility and user conversion rates.</p>
-                    <a href="#" class="btn-link">View Project →</a>
-                </div>
+        <section class="certs">
+            <h2>Recognitions</h2>
+            <div class="cert-row">
+                <span>Google Cloud Professional</span>
+                <span class="line"></span>
+                <span>2025</span>
             </div>
         </section>
+    </main>
 
-        <section id="certificates">
-            <h2>Certifications</h2>
-            <ul class="cert-list">
-                <li><strong>AWS Certified Developer</strong> - Amazon Web Services (2025)</li>
-                <li><strong>Advanced CSS Mastery</strong> - Coursera (2024)</li>
-            </ul>
-        </section>
-
-        <footer>
-            <p>&copy; 2026 [Your Name]. Built with precision.</p>
-        </footer>
-    </div>
+    <footer>
+        <p>Let's build something great together.</p>
+    </footer>
 
 </body>
 </html>
