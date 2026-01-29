@@ -425,10 +425,10 @@ section {
 .image-frame::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 5;
+    left: 5;
+    right: 5;
+    bottom: 5;
     background: linear-gradient(135deg, rgba(45, 55, 72, 0.1), rgba(212, 175, 55, 0.1));
     pointer-events: none;
 }
