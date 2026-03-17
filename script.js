@@ -1,16 +1,58 @@
-// Mobile Navigation Toggle
+/* ============================================================
+   Portfolio Script — Ashley Gem W. Baje
+   Enhanced interactions: cursor, tilt, reveal, skill bars
+   ============================================================ */
+
+// ── Custom Cursor ──────────────────────────────────────────
+const cursorDot  = document.querySelector('.cursor-dot');
+const cursorRing = document.querySelector('.cursor-ring');
+
+let mouseX = -100, mouseY = -100;
+let ringX  = -100, ringY  = -100;
+
+document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top  = mouseY + 'px';
+});
+
+function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top  = ringY + 'px';
+    requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Cursor hover states
+document.querySelectorAll('a, button, .project-3d-card, .edu-card, .hex-skill').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+        cursorDot.style.transform  = 'translate(-50%,-50%) scale(2)';
+        cursorRing.style.width     = '48px';
+        cursorRing.style.height    = '48px';
+        cursorRing.style.borderColor = 'rgba(212,175,55,.7)';
+    });
+    el.addEventListener('mouseleave', () => {
+        cursorDot.style.transform  = 'translate(-50%,-50%) scale(1)';
+        cursorRing.style.width     = '32px';
+        cursorRing.style.height    = '32px';
+        cursorRing.style.borderColor = 'rgba(212,175,55,.5)';
+    });
+});
+
+// ── Navbar ─────────────────────────────────────────────────
+const navbar    = document.querySelector('.navbar');
 const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
+const navMenu   = document.querySelector('.nav-menu');
+const navLinks  = document.querySelectorAll('.nav-link');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-    
-    // Animate hamburger
     hamburger.classList.toggle('active');
 });
 
-// Close mobile menu when clicking on a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
@@ -18,242 +60,181 @@ navLinks.forEach(link => {
     });
 });
 
-// Navbar scroll effect
-const navbar = document.querySelector('.navbar');
-let lastScroll = 0;
-
 window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    
-    lastScroll = currentScroll;
+    navbar.classList.toggle('scrolled', window.pageYOffset > 60);
+    highlightNav();
 });
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+// ── Smooth Scroll ──────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        
+        const target = document.querySelector(a.getAttribute('href'));
         if (target) {
-            const offsetTop = target.offsetTop - 80;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
         }
     });
 });
 
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, observerOptions);
-
-// Elements to animate on scroll
-const animateElements = document.querySelectorAll(
-    '.education-item, .project-card, .certificate-card, .soft-skill-card, .skill-item'
-);
-
-animateElements.forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(el);
-});
-
-// Skill bars animation
-const skillBars = document.querySelectorAll('.skill-progress');
-
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const bar = entry.target;
-            const progress = bar.style.getPropertyValue('--progress');
-            bar.style.width = '0';
-            
-            setTimeout(() => {
-                bar.style.width = progress;
-            }, 100);
-            
-            skillObserver.unobserve(bar);
-        }
-    });
-}, { threshold: 0.5 });
-
-skillBars.forEach(bar => {
-    skillObserver.observe(bar);
-});
-
-// Contact form handling
-const contactForm = document.querySelector('.contact-form');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-        
-        // Here you would typically send the data to a server
-        console.log('Form submitted:', data);
-        
-        // Show success message
-        alert('Thank you for your message! I will get back to you soon.');
-        
-        // Reset form
-        contactForm.reset();
-    });
-}
-
-// Add active class to current nav link based on scroll position
+// ── Active Nav Highlight ───────────────────────────────────
 const sections = document.querySelectorAll('section[id]');
 
-function highlightNavLink() {
-    const scrollY = window.pageYOffset;
-    
-    sections.forEach(section => {
-        const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - 100;
-        const sectionId = section.getAttribute('id');
-        const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-        
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            if (navLink) {
-                navLink.classList.add('active');
-            }
+function highlightNav() {
+    const y = window.pageYOffset + 120;
+    sections.forEach(sec => {
+        const top = sec.offsetTop;
+        const bot = top + sec.offsetHeight;
+        const id  = sec.getAttribute('id');
+        const lnk = document.querySelector(`.nav-link[href="#${id}"]`);
+        if (lnk) {
+            lnk.classList.toggle('active-link', y >= top && y < bot);
         }
     });
 }
 
-window.addEventListener('scroll', highlightNavLink);
+// ── Scroll Reveal ──────────────────────────────────────────
+const revealElements = document.querySelectorAll(
+    '.edu-card, .info-card, .project-3d-card, .hex-skill, .skills-panel, .contact-card, .timeline-item'
+);
 
-// Parallax effect for hero orbs
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const orbs = document.querySelectorAll('.gradient-orb');
-    
-    orbs.forEach((orb, index) => {
-        const speed = (index + 1) * 0.05;
-        orb.style.transform = `translateY(${scrolled * speed}px)`;
+revealElements.forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = `${(i % 4) * 0.1}s`;
+});
+
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+// ── Skill Bars ─────────────────────────────────────────────
+const skillFills = document.querySelectorAll('.skill-fill');
+
+const skillObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const fill = entry.target;
+            const w    = getComputedStyle(fill).getPropertyValue('--w').trim();
+            fill.style.width = '0%';
+            requestAnimationFrame(() => {
+                setTimeout(() => { fill.style.width = w; }, 80);
+            });
+            skillObserver.unobserve(fill);
+        }
+    });
+}, { threshold: 0.4 });
+
+skillFills.forEach(f => skillObserver.observe(f));
+
+// ── 3D Card Tilt ───────────────────────────────────────────
+document.querySelectorAll('[data-tilt]').forEach(card => {
+    card.addEventListener('mousemove', e => {
+        const rect   = card.getBoundingClientRect();
+        const x      = e.clientX - rect.left;
+        const y      = e.clientY - rect.top;
+        const cx     = rect.width  / 2;
+        const cy     = rect.height / 2;
+        const rotateX = ((y - cy) / cy) * -6;
+        const rotateY = ((x - cx) / cx) *  8;
+        card.style.transform = `translateY(-12px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
     });
 });
 
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
+// ── Parallax Shapes ────────────────────────────────────────
+const shapes = document.querySelectorAll('.shape');
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    shapes.forEach((s, i) => {
+        const speed = (i + 1) * 0.03;
+        s.style.transform = `translateY(${scrolled * speed}px)`;
+    });
 });
 
-// Typing effect for hero subtitle (optional enhancement)
+// ── Hero Card Interaction ──────────────────────────────────
+const heroCard = document.querySelector('.hero-card-3d .card-face');
+if (heroCard) {
+    document.addEventListener('mousemove', e => {
+        if (window.innerWidth < 1100) return;
+        const x = (e.clientX / window.innerWidth - .5) * 10;
+        const y = (e.clientY / window.innerHeight - .5) * -10;
+        heroCard.style.transform = `translateY(${-6 + y * 0.5}px) rotateX(${2 + y * 0.3}deg) rotateY(${-4 + x * 0.5}deg)`;
+    });
+}
+
+// ── Contact Form ───────────────────────────────────────────
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = contactForm.querySelector('.form-submit');
+        const span = btn.querySelector('span');
+        const orig = span.textContent;
+
+        span.textContent = 'Sending…';
+        btn.disabled = true;
+
+        setTimeout(() => {
+            span.textContent = '✓ Sent!';
+            btn.style.background = 'linear-gradient(135deg,#48bb78,#38a169)';
+
+            setTimeout(() => {
+                span.textContent = orig;
+                btn.style.background = '';
+                btn.disabled = false;
+                contactForm.reset();
+            }, 2500);
+        }, 1200);
+    });
+}
+
+// ── Calculator Button Micro-interaction ────────────────────
+document.querySelectorAll('.cb').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.style.transform = 'scale(.88)';
+        btn.style.transition = 'transform .08s';
+        setTimeout(() => { btn.style.transform = ''; }, 120);
+    });
+});
+
+// ── Typing effect for hero subtitle ───────────────────────
 const subtitle = document.querySelector('.hero-subtitle');
 if (subtitle) {
     const text = subtitle.textContent;
     subtitle.textContent = '';
     let i = 0;
-    
+
     function typeWriter() {
         if (i < text.length) {
-            subtitle.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
+            subtitle.textContent += text.charAt(i++);
+            setTimeout(typeWriter, 60);
         }
     }
-    
-    // Start typing after page loads
-    setTimeout(typeWriter, 1000);
+    setTimeout(typeWriter, 1400);
 }
 
-// Add hover effect to project cards
-const projectCards = document.querySelectorAll('.project-card');
-
-projectCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.zIndex = '10';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.zIndex = '1';
+// ── Page Load Fade ─────────────────────────────────────────
+window.addEventListener('load', () => {
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity .4s ease';
+    requestAnimationFrame(() => {
+        setTimeout(() => { document.body.style.opacity = '1'; }, 50);
     });
 });
 
-// Cursor trail effect (optional - can be removed for simpler sites)
-const coords = { x: 0, y: 0 };
-const circles = document.querySelectorAll('.circle');
-
-// Only add cursor effect on desktop
-if (window.innerWidth > 768) {
-    document.addEventListener('mousemove', (e) => {
-        coords.x = e.clientX;
-        coords.y = e.clientY;
-    });
-}
-
-// Add reveal animation for contact info items
-const contactItems = document.querySelectorAll('.contact-item');
-contactItems.forEach((item, index) => {
-    item.style.opacity = '0';
-    item.style.transform = 'translateX(-20px)';
-    item.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
-    
-    const contactObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateX(0)';
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    contactObserver.observe(item);
-});
-
-// Add stagger animation to project tags
-const projectTags = document.querySelectorAll('.project-tag');
-projectTags.forEach((tag, index) => {
-    tag.style.animationDelay = `${index * 0.1}s`;
-});
-
-// Lazy loading for images (if you add actual images later)
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.classList.add('loaded');
-                    observer.unobserve(img);
-                }
-            }
-        });
-    });
-    
-    const images = document.querySelectorAll('img[data-src]');
-    images.forEach(img => imageObserver.observe(img));
-}
-
-// Console message
-console.log('%c👋 Hello! Thanks for checking out my portfolio!', 'color: #d4af37; font-size: 16px; font-weight: bold;');
-console.log('%cFeel free to reach out if you have any questions!', 'color: #2d3748; font-size: 14px;');
+// ── Console Easter Egg ─────────────────────────────────────
+console.log(
+    '%c✨ Ashley Gem W. Baje — Portfolio',
+    'color:#d4af37; font-size:18px; font-weight:bold; font-family:serif;'
+);
+console.log(
+    '%cBuilt with passion & code. Say hi → ashleygem02072006@gmail.com',
+    'color:#4a5568; font-size:13px;'
+);
